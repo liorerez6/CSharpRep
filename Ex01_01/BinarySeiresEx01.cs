@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Dynamic;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace Ex01_01
 {
