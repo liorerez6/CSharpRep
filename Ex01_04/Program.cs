@@ -6,11 +6,6 @@ namespace Ex01_04
 {
     public class Program
     {
-
-        
-        
-
-
         public static void Main()
         {
             string stringContiner = "";
@@ -26,14 +21,14 @@ namespace Ex01_04
             endMessageForUser(stringContiner, stringIsPalidrom, stringIsNumberDivdedByFour, numberOfLowerCaseCharsInString, isStringANumber);
         }
 
-        private static void endMessageForUser(string i_stringContainer, bool i_stringIsPalidrom, bool i_stringIsNumberDivdedByFour , int i_numberOfLowerCaseCharsInString, bool i_isStringANumber)
+        private static void endMessageForUser(string i_StringContainer, bool i_StringIsPalidrom, bool i_StringIsNumberDivdedByFour , int i_NumberOfLowerCaseCharsInString, bool i_IsStringANumber)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("The string you chose is: ");
-            stringBuilder.Append(i_stringContainer);
+            stringBuilder.Append(i_StringContainer);
             stringBuilder.AppendLine();
 
-            if (i_stringIsPalidrom)
+            if (i_StringIsPalidrom)
             {
                 stringBuilder.Append("And the string is a palindrom");
             }
@@ -44,9 +39,9 @@ namespace Ex01_04
 
             stringBuilder.AppendLine();
 
-            if (i_isStringANumber)
+            if (i_IsStringANumber)
             {
-                if (i_stringIsNumberDivdedByFour)
+                if (i_StringIsNumberDivdedByFour)
                 {
                     stringBuilder.Append("And it has dvision by 4");
                 }
@@ -58,7 +53,7 @@ namespace Ex01_04
             else
             {
                 stringBuilder.Append("And it has ");
-                stringBuilder.Append(i_numberOfLowerCaseCharsInString);
+                stringBuilder.Append(i_NumberOfLowerCaseCharsInString);
                 stringBuilder.Append(" lower case alpha-bet in it");
             }
             stringBuilder.AppendLine();
@@ -66,15 +61,15 @@ namespace Ex01_04
             Console.WriteLine(msg);
         }
         
-        private static int amountOfLowerCaseCharsInString(string i_stringContainer, bool i_isStringANumber)
+        private static int amountOfLowerCaseCharsInString(string i_StringContainer, bool i_IsStringANumber)
         {
             int counterForLowerCaseLettersInString = 0;
 
-            if (!i_isStringANumber)
+            if (!i_IsStringANumber)
             {
-                for (int indexInsideString = 0; indexInsideString < i_stringContainer.Length; indexInsideString++)
+                for (int indexInsideString = 0; indexInsideString < i_StringContainer.Length; indexInsideString++)
                 {
-                    if (char.IsLower(i_stringContainer[indexInsideString]))
+                    if (char.IsLower(i_StringContainer[indexInsideString]))
                     {
                         counterForLowerCaseLettersInString++;
                     }
@@ -84,14 +79,14 @@ namespace Ex01_04
             return counterForLowerCaseLettersInString;
         }
 
-        private static bool isNumberDivideByFour(string i_stringContainer, bool i_isStringANumber)
+        private static bool isNumberDivideByFour(string i_StringContainer, bool i_IsStringANumber)
         {
             bool isNumberDivdedByFour = false;
             const int v_NumberForDivision = 4;
 
-            if (i_isStringANumber)
+            if (i_IsStringANumber)
             {
-                long numberFromString = long.Parse(i_stringContainer); 
+                long numberFromString = long.Parse(i_StringContainer); 
                 double fullNumberWithDecimalPoint = ((double)numberFromString / v_NumberForDivision);
                 long fullNumberWithoutDecimalPoint = (numberFromString / v_NumberForDivision);
                 isNumberDivdedByFour = (fullNumberWithDecimalPoint - fullNumberWithoutDecimalPoint == 0);               
@@ -99,55 +94,55 @@ namespace Ex01_04
             return isNumberDivdedByFour;
         }
 
-        private static void isStringIsPalindrom(ref bool io_stringIsPalidrom, string i_stringContainer)
+        private static void isStringIsPalindrom(ref bool io_StringIsPalidrom, string i_StringContainer)
         {
-            io_stringIsPalidrom = isPalindromRec(0, i_stringContainer.Length - 1, i_stringContainer);
+            io_StringIsPalidrom = isPalindromRec(0, i_StringContainer.Length - 1, i_StringContainer);
         }
 
-        private static bool isPalindromRec(int left, int right, string i_stringContainer)
+        private static bool isPalindromRec(int i_LeftIndexInString, int i_RightIndexInString, string i_StringContainer)
         {
-            if (left >= right)
+            if (i_LeftIndexInString >= i_RightIndexInString)
             {
                 return true;
             }
-            if (i_stringContainer[left] != i_stringContainer[right])
+            if (i_StringContainer[i_LeftIndexInString] != i_StringContainer[i_RightIndexInString])
             {
                 return false;
             }
                 
-            return isPalindromRec(left + 1, right - 1, i_stringContainer);
+            return isPalindromRec(i_LeftIndexInString + 1, i_RightIndexInString - 1, i_StringContainer);
         }
-        private static void getInputFromUser(ref string io_stringContainer, ref bool io_stringIsANumber)
+        private static void getInputFromUser(ref string io_StringContainer, ref bool io_StringIsANumber)
         {
             Console.WriteLine("enter a 10-chars string that written by english alphabet or digits (not a combination)");
-            io_stringContainer = Console.ReadLine();
+            io_StringContainer = Console.ReadLine();
 
-            while (!(checkForVaildString(io_stringContainer,ref io_stringIsANumber)))
+            while (!(checkForVaildString(io_StringContainer,ref io_StringIsANumber)))
             {
                 Console.WriteLine("String is not like instructions! try again");
-                io_stringContainer = Console.ReadLine();
+                io_StringContainer = Console.ReadLine();
             }
         }
 
-        private static bool checkForVaildString(string i_stringContainer, ref bool o_stringIsANumber)
+        private static bool checkForVaildString(string i_StringContainer, ref bool o_StringIsANumber)
         {
             bool stringIsVaild = false;
             int counterForFullyCompleteNumber = 0;
             bool vailEnglishAlphabet = true;
             const int v_RequiredLengthSizeOfString = 10;
 
-            if (i_stringContainer.Length == v_RequiredLengthSizeOfString)
+            if (i_StringContainer.Length == v_RequiredLengthSizeOfString)
             {
-                for (int indexInsideString = 0; indexInsideString < i_stringContainer.Length; indexInsideString++)
+                for (int indexInsideString = 0; indexInsideString < i_StringContainer.Length; indexInsideString++)
                 {
 
-                    if (char.IsDigit(i_stringContainer[indexInsideString]))
+                    if (char.IsDigit(i_StringContainer[indexInsideString]))
                     {
                         counterForFullyCompleteNumber++;
                     }
                     else
                     {
-                        if (!(i_stringContainer[indexInsideString] >= 'A' && i_stringContainer[indexInsideString] <= 'z'))
+                        if (!(i_StringContainer[indexInsideString] >= 'A' && i_StringContainer[indexInsideString] <= 'z'))
                         {
                             vailEnglishAlphabet = false;
                             break;
@@ -159,7 +154,7 @@ namespace Ex01_04
                 {
                     if (counterForFullyCompleteNumber == v_RequiredLengthSizeOfString)
                     {
-                        o_stringIsANumber = true;
+                        o_StringIsANumber = true;
                     }
                     stringIsVaild = true;
                 }
