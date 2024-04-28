@@ -173,7 +173,6 @@ The smallest number of all 3 is: {8}
                 {
                     counterForAccedingSeiresNumbers++;
                 }
-                
 
             }
 
