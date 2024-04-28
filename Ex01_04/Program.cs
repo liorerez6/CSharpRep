@@ -19,6 +19,7 @@ namespace Ex01_04
             stringIsNumberDivdedByFour = isNumberDivideByFour(stringContiner, isStringANumber);
             numberOfLowerCaseCharsInString = amountOfLowerCaseCharsInString(stringContiner, isStringANumber);
             endMessageForUser(stringContiner, stringIsPalidrom, stringIsNumberDivdedByFour, numberOfLowerCaseCharsInString, isStringANumber);
+
         }
 
         private static void endMessageForUser(string i_StringContainer, bool i_StringIsPalidrom, bool i_StringIsNumberDivdedByFour , int i_NumberOfLowerCaseCharsInString, bool i_IsStringANumber)
@@ -86,10 +87,8 @@ namespace Ex01_04
 
             if (i_IsStringANumber)
             {
-                long numberFromString = long.Parse(i_StringContainer); 
-                double fullNumberWithDecimalPoint = ((double)numberFromString / v_NumberForDivision);
-                long fullNumberWithoutDecimalPoint = (numberFromString / v_NumberForDivision);
-                isNumberDivdedByFour = (fullNumberWithDecimalPoint - fullNumberWithoutDecimalPoint == 0);               
+                long numberFromString = long.Parse(i_StringContainer);            
+                isNumberDivdedByFour = ((numberFromString % (long)v_NumberForDivision) == 0);
             }
             return isNumberDivdedByFour;
         }
