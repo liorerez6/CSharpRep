@@ -20,6 +20,8 @@ namespace Ex01_04
             numberOfLowerCaseCharsInString = amountOfLowerCaseCharsInString(stringContiner, isStringANumber);
             endMessageForUser(stringContiner, stringIsPalidrom, stringIsNumberDivdedByFour, numberOfLowerCaseCharsInString, isStringANumber);
 
+            Console.WriteLine("\nPress enter to exit\n");
+            Console.ReadLine();
         }
 
         private static void endMessageForUser(string i_StringContainer, bool i_StringIsPalidrom, bool i_StringIsNumberDivdedByFour , int i_NumberOfLowerCaseCharsInString, bool i_IsStringANumber)

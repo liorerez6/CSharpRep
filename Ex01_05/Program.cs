@@ -20,6 +20,9 @@ namespace Ex01_05
             avgDigitValueInNumber = findAvgDigitValueInNumber(inputFromUserAsString);
 
             statisticsMessageForUser(inputFromUserAsString, amountOfDigitsSmallerFromLeastSignificantDigit, amountOfDigitsDivideByThree, biggestDigitInNumber, avgDigitValueInNumber);
+
+            Console.WriteLine("\nPress enter to exit\n");
+            Console.ReadLine();
         }
 
         private static void statisticsMessageForUser(string i_InputFromUserAsString, int i_AmountOfDigitsSmallerFromLeastSignificantDigit, int i_AmountOfDigitsDivideByThree, int i_BiggestDigitInNumber, double i_AvgDigitValueInNumber)
