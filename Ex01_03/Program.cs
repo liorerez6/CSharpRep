@@ -13,7 +13,7 @@ namespace Ex01_03
             userChosenHeight = getHeightFromUser();
             Console.WriteLine("\nPress enter to exit\n");
             Console.ReadLine();
-            Ex01_02.Program.runProgramEx01_02(userChosenHeight); //uses the same function implemented in ex01_02
+            Ex01_02.Program.RunProgramEx01_02(userChosenHeight); //uses the same function implemented in ex01_02
         }
 
         private static int getHeightFromUser() // gets the height from the user

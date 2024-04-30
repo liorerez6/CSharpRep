@@ -6,17 +6,18 @@ namespace Ex01_01
     {
         static void Main()
         {
-            string firstInputBinaryNumber = "", secondInputBinaryNumber = "", thirdInputBinaryNumber = "";
-            int avgNumberOfZeros = 0, avgNumberOfOnes = 0, decialValueOfFirstNumber = 0, decimalValueOfSecondNumber = 0, decialValueOfThirdNumber = 0;
+            string firstInputBinaryNumber, secondInputBinaryNumber, thirdInputBinaryNumber;
+            int avgNumberOfZeros, avgNumberOfOnes, decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber;
+            int lowestNumber, highestNumber, middleNumber, amountOfNumbersThatAccedingSeires, poweredByTwoCount;
 
-            inputHandlingFromUser(ref firstInputBinaryNumber, ref secondInputBinaryNumber, ref thirdInputBinaryNumber);
-            calculateAvgAmountOfZerosAndOnesInNumbers(firstInputBinaryNumber, secondInputBinaryNumber, thirdInputBinaryNumber, ref avgNumberOfZeros, ref avgNumberOfOnes);
-            convertAllBinaryNumbersIntoDecimal(firstInputBinaryNumber, secondInputBinaryNumber, thirdInputBinaryNumber, ref decialValueOfFirstNumber, ref decimalValueOfSecondNumber, ref decialValueOfThirdNumber);
-            int poweredByTwoCount = findAmountOfNumbersPoweredByTwo(decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
-            int lowestNumber = findMaxOrMinNumberAccordingToParameter(true, decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
-            int highestNumber = findMaxOrMinNumberAccordingToParameter(false, decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
-            int middleNumber = findMiddleNumber(lowestNumber, highestNumber, decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
-            int amountOfNumbersThatAccedingSeires = amountOfNumbersThatAreAccendingSeires(decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
+            inputHandlingFromUser(out firstInputBinaryNumber, out secondInputBinaryNumber, out thirdInputBinaryNumber);
+            calculateAvgAmountOfZerosAndOnesInNumbers(firstInputBinaryNumber, secondInputBinaryNumber, thirdInputBinaryNumber, out avgNumberOfZeros, out avgNumberOfOnes);
+            convertAllBinaryNumbersIntoDecimal(firstInputBinaryNumber, secondInputBinaryNumber, thirdInputBinaryNumber, out decialValueOfFirstNumber, out decimalValueOfSecondNumber, out decialValueOfThirdNumber);
+            poweredByTwoCount = findAmountOfNumbersPoweredByTwo(decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
+            lowestNumber = FindMinNumber(decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
+            highestNumber = FindMaxNumber(decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
+            middleNumber = findMidNumber(lowestNumber, highestNumber, decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
+            amountOfNumbersThatAccedingSeires = amountOfNumbersThatAreAccendingSeires(decialValueOfFirstNumber, decimalValueOfSecondNumber, decialValueOfThirdNumber);
             staticicsForUser(poweredByTwoCount, amountOfNumbersThatAccedingSeires, avgNumberOfZeros, avgNumberOfOnes, lowestNumber, middleNumber, highestNumber);
 
             Console.WriteLine("press Any Key to exit");
@@ -42,30 +43,21 @@ The smallest number of all 3 is: {8}
 
             
         }
-        private static void inputHandlingFromUser(ref string io_FirstInputBinaryNumber, ref string io_SecondInputBinaryNumber, ref string io_ThirdInputBinaryNumber)
+        private static void inputHandlingFromUser(out string o_FirstInputBinaryNumber, out string o_SecondInputBinaryNumber, out string o_ThirdInputBinaryNumber)
         {
-
             Console.WriteLine("Enter 3 numbers with 9 digits for each number:");
-            io_FirstInputBinaryNumber = Console.ReadLine();
+            getInputFromUser(out o_FirstInputBinaryNumber);
+            getInputFromUser(out o_SecondInputBinaryNumber);
+            getInputFromUser(out o_ThirdInputBinaryNumber);
+        }
 
-            while (!checkIfInputFromUserIsVaild(io_FirstInputBinaryNumber))
+        private static void getInputFromUser(out string o_InputBinaryNumber)
+        {
+            o_InputBinaryNumber = Console.ReadLine();
+            while (!checkIfInputFromUserIsVaild(o_InputBinaryNumber))
             {
-                Console.WriteLine("Numbers should be 9 digits with only zeros and ones");
-                io_FirstInputBinaryNumber = Console.ReadLine();
-            }
-
-            io_SecondInputBinaryNumber = Console.ReadLine();
-            while (!checkIfInputFromUserIsVaild(io_SecondInputBinaryNumber))
-            {
-                Console.WriteLine("Numbers should be 9 digits with only zeros and ones");
-                io_SecondInputBinaryNumber = Console.ReadLine();
-            }
-
-            io_ThirdInputBinaryNumber = Console.ReadLine();
-            while (!checkIfInputFromUserIsVaild(io_ThirdInputBinaryNumber))
-            {
-                Console.WriteLine("Numbers should be 9 digits with only zeros and ones");
-                io_ThirdInputBinaryNumber = Console.ReadLine();
+                Console.WriteLine("Invalid input! Numbers should be 9 digits with only zeros and ones");
+                o_InputBinaryNumber = Console.ReadLine();
             }
         }
         private static bool checkIfInputFromUserIsVaild(string i_messageForUser)
@@ -93,102 +85,108 @@ The smallest number of all 3 is: {8}
             }
             return isInputVaild;
         }
-        private static int findMiddleNumber(int i_biggestNumber, int i_smallestNumber, int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
+
+
+
+        private static bool isNumberIsMiddleNumber(int i_MinNumber,  int i_MaxNumber,  int i_CheckIfNumber)
         {
-            const int v_AmountOFNumbers = 3;
+            
+            int tmpMiddleNumber1 = Math.Min(i_CheckIfNumber, i_MaxNumber);
+            int tmpMiddleNumber2 = Math.Max(i_CheckIfNumber, i_MinNumber);
 
-            int[] numbers = new int[v_AmountOFNumbers];
-            numbers[0] = i_DecialValueOfFirstNumber;
-            numbers[1] = i_DecimalValueOfSecondNumber;
-            numbers[2] = i_DecialValueOfThirdNumber;
+            return (tmpMiddleNumber1 == tmpMiddleNumber2);
+        }
 
-            int middleNumber = i_DecialValueOfFirstNumber;
-            for (int indexAtSpecificNumber = 0; indexAtSpecificNumber < v_AmountOFNumbers; indexAtSpecificNumber++)
+        private static int findMidNumber(int i_MinNumber, int i_MaxNumber, int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
+        {
+            int middleNumber = 0;
+
+            if (isNumberIsMiddleNumber( i_MinNumber,  i_MaxNumber, i_DecialValueOfFirstNumber))
             {
-                if (numbers[indexAtSpecificNumber] != i_biggestNumber && numbers[indexAtSpecificNumber] != i_smallestNumber)
-                {
-                    middleNumber = numbers[indexAtSpecificNumber];
-                }
+                middleNumber = i_DecialValueOfFirstNumber;
             }
+            else if (isNumberIsMiddleNumber( i_MinNumber,  i_MaxNumber, i_DecimalValueOfSecondNumber))
+            {
+                middleNumber = i_DecimalValueOfSecondNumber;
+            }
+            else
+            {
+                middleNumber = i_DecialValueOfThirdNumber;
+            }
+
             return middleNumber;
         }
+
+
         private static int amountOfNumbersThatAreAccendingSeires(int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
         {
-            const int v_AmountOFNumbers = 3;
-            int[] numbers = new int[v_AmountOFNumbers];
-            numbers[0] = i_DecialValueOfFirstNumber;
-            numbers[1] = i_DecimalValueOfSecondNumber;
-            numbers[2] = i_DecialValueOfThirdNumber;
+            int amountOfNumbersThatAccedingSeires = 0;
 
-            int counterForAccedingSeiresNumbers = 0;
-            int tempContainerForDecimalNumber;
-            const int v_DvisionByTen = 10;
+            amountOfNumbersThatAccedingSeires += isNumbersAreAccendingSeires( i_DecialValueOfFirstNumber);
+            amountOfNumbersThatAccedingSeires += isNumbersAreAccendingSeires(i_DecimalValueOfSecondNumber);
+            amountOfNumbersThatAccedingSeires += isNumbersAreAccendingSeires(i_DecialValueOfThirdNumber);
 
-            for (int indexAtSpecificNumber = 0; indexAtSpecificNumber < v_AmountOFNumbers; indexAtSpecificNumber++)
-            {
-                bool isNumberAccedingSeires = true;
-                tempContainerForDecimalNumber = (numbers[indexAtSpecificNumber] % v_DvisionByTen);
-                numbers[indexAtSpecificNumber] /= v_DvisionByTen;
-                while ((numbers[indexAtSpecificNumber] > 0) && isNumberAccedingSeires)
-                {
-                    if ((numbers[indexAtSpecificNumber] % v_DvisionByTen) < tempContainerForDecimalNumber)
-                    {
-                        tempContainerForDecimalNumber = (numbers[indexAtSpecificNumber] % v_DvisionByTen);
-                        numbers[indexAtSpecificNumber] /= v_DvisionByTen;
-                    }
-                    else
-                    {
-                        isNumberAccedingSeires = false;
-                    }
-                }
-                if (isNumberAccedingSeires)
-                {
-                    counterForAccedingSeiresNumbers++;
-                }
-            }
-            return counterForAccedingSeiresNumbers;
+            return amountOfNumbersThatAccedingSeires;
         }
-        private static int findMaxOrMinNumberAccordingToParameter(bool i_biggerOrSmallerSign, int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
+
+        private static int isNumbersAreAccendingSeires(int i_NumbersToCheck)
         {
-            const int v_AmountOFNumbers = 3;
+            int appendToCounterOfAccedingSeires = 1;
+            const int v_DivideByTen = 10;
 
-            int[] numbers = new int[v_AmountOFNumbers];
-            numbers[0] = i_DecialValueOfFirstNumber;
-            numbers[1] = i_DecimalValueOfSecondNumber;
-            numbers[2] = i_DecialValueOfThirdNumber;
-            int maxOrMinNumberAccordingToParameter = numbers[0];
+            int tempContainerForDecimalNumber = (i_NumbersToCheck % v_DivideByTen);
 
-            for (int indexAtSpecificNumber = 1; indexAtSpecificNumber < v_AmountOFNumbers; indexAtSpecificNumber++)
+            i_NumbersToCheck /= v_DivideByTen;
+
+            while (i_NumbersToCheck > 0)
             {
-                if (i_biggerOrSmallerSign == false)
+                if ((i_NumbersToCheck % v_DivideByTen) < tempContainerForDecimalNumber)
                 {
-                    if (maxOrMinNumberAccordingToParameter < numbers[indexAtSpecificNumber])
-                    {
-                        maxOrMinNumberAccordingToParameter = numbers[indexAtSpecificNumber];
-                    }
+                    tempContainerForDecimalNumber = (i_NumbersToCheck % v_DivideByTen);
+                    i_NumbersToCheck /= v_DivideByTen;
                 }
                 else
                 {
-                    if (maxOrMinNumberAccordingToParameter > numbers[indexAtSpecificNumber])
-                    {
-                        maxOrMinNumberAccordingToParameter = numbers[indexAtSpecificNumber];
-                    }
+                    appendToCounterOfAccedingSeires = 0;
+                    break;
                 }
             }
-            return maxOrMinNumberAccordingToParameter;
+
+            return appendToCounterOfAccedingSeires;
         }
-        private static void calculateAvgAmountOfZerosAndOnesInNumbers(string i_FirstInputBinaryNumber, string i_SecondInputBinaryNumber, string i_ThirdInputBinaryNumber, ref int io_AvgNumberOfZeros, ref int io_AvgNumberOfOnes)
+             
+        private static int FindMaxNumber(int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
+        {
+            int maxNumber;
+
+            maxNumber = (int)Math.Max(i_DecialValueOfFirstNumber, i_DecimalValueOfSecondNumber);
+            maxNumber = (int)Math.Max(maxNumber, i_DecialValueOfThirdNumber);
+
+            return maxNumber;
+        }
+
+        private static int FindMinNumber(int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
+        {
+            int minNumber;
+
+            minNumber = (int)Math.Min(i_DecialValueOfFirstNumber, i_DecimalValueOfSecondNumber);
+            minNumber = (int)Math.Min(minNumber, i_DecialValueOfThirdNumber);
+
+            return minNumber;
+
+        }
+        private static void calculateAvgAmountOfZerosAndOnesInNumbers(string i_FirstInputBinaryNumber, string i_SecondInputBinaryNumber, string i_ThirdInputBinaryNumber, out int o_AvgNumberOfZeros, out int o_AvgNumberOfOnes)
         {
             int sumNumbOfZerosInTotalNumbers = 0;
             const int v_TotalNumberOfDigitsInAllNumbers = 27;
             const int v_AmountOfNumbersFromUser = 3;
 
-            sumNumbOfZerosInTotalNumbers += FindAmountOfZerosInANumbers(i_FirstInputBinaryNumber);
-            sumNumbOfZerosInTotalNumbers += FindAmountOfZerosInANumbers(i_SecondInputBinaryNumber);
-            sumNumbOfZerosInTotalNumbers += FindAmountOfZerosInANumbers(i_ThirdInputBinaryNumber);
+            sumNumbOfZerosInTotalNumbers += findAmountOfZerosInANumbers(i_FirstInputBinaryNumber);
+            sumNumbOfZerosInTotalNumbers += findAmountOfZerosInANumbers(i_SecondInputBinaryNumber);
+            sumNumbOfZerosInTotalNumbers += findAmountOfZerosInANumbers(i_ThirdInputBinaryNumber);
 
-            io_AvgNumberOfOnes = ((v_TotalNumberOfDigitsInAllNumbers - sumNumbOfZerosInTotalNumbers) / v_AmountOfNumbersFromUser);
-            io_AvgNumberOfZeros = sumNumbOfZerosInTotalNumbers / v_AmountOfNumbersFromUser;
+            o_AvgNumberOfOnes = ((v_TotalNumberOfDigitsInAllNumbers - sumNumbOfZerosInTotalNumbers) / v_AmountOfNumbersFromUser);
+            o_AvgNumberOfZeros = sumNumbOfZerosInTotalNumbers / v_AmountOfNumbersFromUser;
         }
         private static int findAmountOfNumbersPoweredByTwo(int i_DecialValueOfFirstNumber, int i_DecimalValueOfSecondNumber, int i_DecialValueOfThirdNumber)
         {
@@ -216,7 +214,7 @@ The smallest number of all 3 is: {8}
             }
         }
 
-        private static int FindAmountOfZerosInANumbers(string inputNumberFromUser)
+        private static int findAmountOfZerosInANumbers(string inputNumberFromUser)
         {
             int countZerosInNumber = 0;
 
@@ -232,7 +230,7 @@ The smallest number of all 3 is: {8}
             return countZerosInNumber;
         }
 
-        private static void convertAllBinaryNumbersIntoDecimal(string i_FirstInputBinaryNumber, string i_SecondInputBinaryNumber, string i_ThirdInputBinaryNumber, ref int io_DecialValueOfFirstNumber, ref int io_DecimalValueOfSecondNumber, ref int io_DecialValueOfThirdNumber)
+        private static void convertAllBinaryNumbersIntoDecimal(string i_FirstInputBinaryNumber, string i_SecondInputBinaryNumber, string i_ThirdInputBinaryNumber, out int io_DecialValueOfFirstNumber, out int io_DecimalValueOfSecondNumber, out int io_DecialValueOfThirdNumber)
         {
 
             int firstBinaryNumber = int.Parse(i_FirstInputBinaryNumber);

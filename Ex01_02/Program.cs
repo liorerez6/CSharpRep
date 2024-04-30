@@ -13,13 +13,13 @@ namespace Ex01_02
         {
             Console.WriteLine("Ex01_02: Diamond For Begginers\n");
 
-            runProgramEx01_02();
+            RunProgramEx01_02();
 
             Console.WriteLine("\nPress enter to exit\n");
             Console.ReadLine();
         }
 
-        public static void runProgramEx01_02(int i_Height = k_DefaultHight)
+        public static void RunProgramEx01_02(int i_Height = k_DefaultHight)
         {
             int amountOfDiamondCharPerLine = 1;
 
